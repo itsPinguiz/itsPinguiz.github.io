@@ -21,6 +21,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Compile public CV
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: resume.tex
+          working_directory: cv/CV__ENG__redacted
+          texlive_version: 2025
+          os: debian
+
+      - name: Add compiled CV to the site
+        run: cp cv/CV__ENG__redacted/resume.pdf public/cv/stefano-zizzi-cv.pdf
+
       - name: Install, build, and upload site
         uses: withastro/action@v6
 

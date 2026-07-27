@@ -14,6 +14,9 @@ npm run dev
 Project data lives in `src/content/projects/`. Each Markdown file contains the problem, approach,
 personal contribution, result and evidence link displayed on the homepage.
 
+The public CV source lives in `cv/CV__ENG__redacted/`. During deployment, GitHub Actions compiles
+`resume.tex` and publishes the result at `/cv/stefano-zizzi-cv.pdf`.
+
 ## Deployment
 
 Pushes to `main` are built and published to GitHub Pages through `.github/workflows/deploy.yml`.
