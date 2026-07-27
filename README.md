@@ -2,6 +2,9 @@
 
 Personal AI engineering and research portfolio built with Astro, TypeScript and plain CSS.
 
+The site includes static project case studies, structured `Person` data, Open Graph metadata,
+a generated XML sitemap, accessible navigation and a redacted public CV.
+
 ## Local development
 
 ```bash
