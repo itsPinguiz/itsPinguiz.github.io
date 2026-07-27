@@ -1,0 +1,89 @@
+---
+interface Props {
+  visual: "maas" | "clarity" | "eqe" | "minerva";
+}
+
+const { visual } = Astro.props;
+---
+
+<div class:list={["project-visual", `project-visual--${visual}`]} aria-hidden="true">
+  {
+    visual === "maas" && (
+      <>
+        <img
+          class="visual-image visual-image--maas"
+          src="/projects/maas/attention-analysis.png"
+          alt=""
+          loading="lazy"
+          width="1600"
+          height="494"
+        />
+        <div class="visual-caption">
+          <span>EoMT attention analysis</span>
+          <strong>input · mask · self-attention</strong>
+        </div>
+      </>
+    )
+  }
+
+  {
+    visual === "clarity" && (
+      <>
+        <div class="clarity-score">
+          <span>Macro-F1</span>
+          <strong>0.608</strong>
+        </div>
+        <div class="clarity-flow">
+          <span>encoder</span>
+          <i>→</i>
+          <span>prompting</span>
+          <i>→</i>
+          <span>QLoRA</span>
+        </div>
+        <div class="clarity-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </>
+    )
+  }
+
+  {
+    visual === "eqe" && (
+      <>
+        <img
+          class="visual-image visual-image--eqe"
+          src="/projects/eqe/ccc-by-k.png"
+          alt=""
+          loading="lazy"
+          width="2451"
+          height="1510"
+        />
+        <div class="eqe-formula">
+          <span>Complexity-Calibrated Local Concordance</span>
+          CCC = E[(f(x) − g<sub>K</sub>(x))²]
+        </div>
+      </>
+    )
+  }
+
+  {
+    visual === "minerva" && (
+      <>
+        <div class="minerva-status"><i></i> architecture in progress</div>
+        <div class="minerva-map">
+          <span class="minerva-input">image</span>
+          <i>→</i>
+          <span class="minerva-core">ResNet-50<br /><small>shared backbone</small></span>
+          <i>→</i>
+          <span class="minerva-heads">
+            <b>head 01</b>
+            <b>head 02</b>
+            <b>head n</b>
+          </span>
+        </div>
+      </>
+    )
+  }
+</div>

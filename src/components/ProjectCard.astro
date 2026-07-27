@@ -1,0 +1,82 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ProjectVisual from "./ProjectVisual.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const {
+  title,
+  category,
+  status,
+  summary,
+  problem,
+  approach,
+  contribution,
+  result,
+  resultLabel,
+  evidenceUrl,
+  evidenceLabel,
+  technologies,
+  visual,
+  featured,
+} = project.data;
+---
+
+<article class:list={["project-card", featured && "project-card--featured"]} data-reveal>
+  <div class="project-card__topline">
+    <span class="project-index">{String(index + 1).padStart(2, "0")}</span>
+    <span class:list={["status", status === "In Development" && "status--development"]}>
+      <i></i>{status}
+    </span>
+  </div>
+
+  <ProjectVisual visual={visual} />
+
+  <div class="project-card__content">
+    <p class="eyebrow">{category}</p>
+    <h3>{title}</h3>
+    <p class="project-summary">{summary}</p>
+
+    <dl class="project-details">
+      <div>
+        <dt>Problem</dt>
+        <dd>{problem}</dd>
+      </div>
+      <div>
+        <dt>Approach</dt>
+        <dd>{approach}</dd>
+      </div>
+      <div>
+        <dt>Contribution</dt>
+        <dd>{contribution}</dd>
+      </div>
+    </dl>
+
+    {
+      result && (
+        <div class="project-result">
+          <span>{resultLabel ?? "Result"}</span>
+          <p>{result}</p>
+        </div>
+      )
+    }
+
+    <div class="project-footer">
+      <ul class="tech-list" aria-label="Technologies">
+        {technologies.map((technology) => <li>{technology}</li>)}
+      </ul>
+
+      {
+        evidenceUrl && (
+          <a class="text-link" href={evidenceUrl} target="_blank" rel="noreferrer">
+            {evidenceLabel} <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>

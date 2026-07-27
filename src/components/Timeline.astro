@@ -1,0 +1,41 @@
+---
+const entries = [
+  {
+    period: "2024 — Present",
+    title: "M.Sc. in Data Science & Engineering",
+    place: "Politecnico di Torino",
+    description:
+      "Advanced study across Machine Learning, Deep Learning, Big Data systems and the mathematical foundations of AI.",
+  },
+  {
+    period: "Academic experience",
+    title: "Human Activity Recognition internship",
+    place: "Applied Machine Learning",
+    description:
+      "Worked on an end-to-end Human Activity Recognition pipeline, connecting sensor data, experimental design and model evaluation.",
+  },
+  {
+    period: "Previous",
+    title: "B.Sc. in Computer Science",
+    place: "University of Urbino Carlo Bo",
+    description:
+      "Built the software-engineering and mathematical foundation that now supports research-oriented AI work.",
+  },
+];
+---
+
+<ol class="timeline">
+  {
+    entries.map((entry, index) => (
+      <li data-reveal>
+        <span class="timeline-number">{String(index + 1).padStart(2, "0")}</span>
+        <div class="timeline-period">{entry.period}</div>
+        <div class="timeline-main">
+          <p>{entry.place}</p>
+          <h3>{entry.title}</h3>
+          <span>{entry.description}</span>
+        </div>
+      </li>
+    ))
+  }
+</ol>
