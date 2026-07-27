@@ -11,16 +11,41 @@ interface Props {
 }
 
 const {
-  title = "Stefano Zizzi — AI Engineering",
-  description = "AI Engineering M.Sc. student working across Computer Vision, NLP, Explainable AI and reliable ML systems.",
-  socialImage: socialImagePath = "/og.png",
-  socialImageWidth = 1536,
-  socialImageHeight = 1024,
+  title = "Stefano Zizzi — AI Engineering Portfolio",
+  description = "AI engineering portfolio of Stefano Zizzi, featuring work in Computer Vision, NLP, Explainable AI, anomaly detection and reproducible ML systems.",
+  socialImage: socialImagePath = "/og-v2.png",
+  socialImageWidth = 1200,
+  socialImageHeight = 630,
   type = "website",
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(socialImagePath, Astro.site);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Stefano Zizzi",
+  url: "https://itspinguiz.github.io/",
+  sameAs: [
+    "https://github.com/itsPinguiz",
+    "https://www.linkedin.com/in/zizzi-stefano",
+  ],
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: "Politecnico di Torino",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Urbino Carlo Bo",
+  },
+  knowsAbout: [
+    "Computer Vision",
+    "Natural Language Processing",
+    "Explainable Artificial Intelligence",
+    "Out-of-Distribution Detection",
+    "Machine Learning Engineering",
+  ],
+};
 ---
 
 <!doctype html>
@@ -44,12 +69,14 @@ const socialImage = new URL(socialImagePath, Astro.site);
     <meta property="og:image:width" content={String(socialImageWidth)} />
     <meta property="og:image:height" content={String(socialImageHeight)} />
     <meta property="og:site_name" content="Stefano Zizzi" />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
 
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
     <title>{title}</title>
   </head>
   <body>
