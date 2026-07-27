@@ -1,0 +1,210 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ProjectVisual from "../../components/ProjectVisual.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  nextProject: CollectionEntry<"projects">;
+}
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+
+  return projects.map((project, index) => ({
+    params: { id: project.id.replace(/\.md$/, "") },
+    props: {
+      project,
+      nextProject: projects[(index + 1) % projects.length],
+    },
+  }));
+}
+
+const { project, nextProject } = Astro.props;
+const { Content, headings } = await render(project);
+const {
+  title,
+  shortTitle,
+  category,
+  status,
+  summary,
+  role,
+  team,
+  period,
+  researchQuestion,
+  metrics,
+  links,
+  gallery,
+  technologies,
+  visual,
+} = project.data;
+
+const pageTitle = `${shortTitle ?? title} — Case Study | Stefano Zizzi`;
+const socialImage = gallery[0]?.src ?? "/og.png";
+const nextPath = `/projects/${nextProject.id.replace(/\.md$/, "")}/`;
+const visibleHeadings = headings.filter((heading) => heading.depth === 2);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={summary}
+  socialImage={socialImage}
+  socialImageWidth={gallery[0]?.width}
+  socialImageHeight={gallery[0]?.height}
+  type="article"
+>
+  <div id="top"></div>
+  <Header />
+
+  <main id="main-content" class="case-study">
+    <section class="case-hero shell" aria-labelledby="case-title">
+      <a class="case-back" href="/#work"><span aria-hidden="true">←</span> Selected work</a>
+
+      <div class="case-hero__grid">
+        <div class="case-hero__copy" data-reveal data-visible>
+          <div class="case-kicker">
+            <span>{category}</span>
+            <span class:list={["status", status === "In Development" && "status--development"]}>
+              <i></i>{status}
+            </span>
+          </div>
+          <h1 id="case-title">{title}</h1>
+          <p class="case-summary">{summary}</p>
+
+          <div class="case-actions">
+            {
+              links.map((link, index) => (
+                <a
+                  class:list={["button", index === 0 ? "button--primary" : "button--secondary"]}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="case-facts" aria-label="Project facts" data-reveal data-visible>
+          <dl>
+            <div>
+              <dt>Role</dt>
+              <dd>{role}</dd>
+            </div>
+            <div>
+              <dt>Team</dt>
+              <dd>{team}</dd>
+            </div>
+            <div>
+              <dt>Period</dt>
+              <dd>{period}</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>{technologies.join(" · ")}</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+
+      <div class="case-question" data-reveal data-visible>
+        <span>Research question</span>
+        <p>{researchQuestion}</p>
+      </div>
+    </section>
+
+    <section class="case-signal" aria-label="Project metrics">
+      <div class="shell case-metrics">
+        {
+          metrics.map((metric) => (
+            <div>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+              {metric.note && <small>{metric.note}</small>}
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <div class="case-body shell">
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          {
+            visibleHeadings.map((heading) => (
+              <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+            ))
+          }
+        </ol>
+      </aside>
+
+      <article class="case-prose" data-reveal>
+        <Content />
+      </article>
+    </div>
+
+    {
+      gallery.length > 0 && (
+        <section class="case-gallery shell" aria-labelledby="evidence-title">
+          <div class="section-heading" data-reveal>
+            <div>
+              <p class="section-index">Evidence / Selected outputs</p>
+              <h2 id="evidence-title">What the analysis revealed.</h2>
+            </div>
+            <p>Real experimental outputs from the repository, with the interpretation kept next to the evidence.</p>
+          </div>
+
+          <div class="case-gallery__grid">
+            {gallery.map((figure, index) => (
+              <figure class:list={[index === 0 && "case-figure--wide"]} data-reveal>
+                <div class="case-figure__image">
+                  <img
+                    src={figure.src}
+                    alt={figure.alt}
+                    width={figure.width}
+                    height={figure.height}
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption>
+                  <span>Figure {String(index + 1).padStart(2, "0")}</span>
+                  {figure.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      gallery.length === 0 && (
+        <section class="case-architecture shell" aria-labelledby="architecture-title">
+          <div class="section-heading" data-reveal>
+            <div>
+              <p class="section-index">System / Current architecture</p>
+              <h2 id="architecture-title">Designed for extension.</h2>
+            </div>
+            <p>The page shows implemented structure only; model-quality claims remain intentionally absent.</p>
+          </div>
+          <ProjectVisual visual={visual} />
+        </section>
+      )
+    }
+
+    <nav class="next-project shell" aria-label="Next project">
+      <span>Next case study</span>
+      <a href={nextPath}>
+        <strong>{nextProject.data.title}</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+    </nav>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -18,6 +18,38 @@ const projects = defineCollection({
     resultLabel: z.string().optional(),
     evidenceUrl: z.url().optional(),
     evidenceLabel: z.string().default("View repository"),
+    role: z.string(),
+    team: z.string(),
+    period: z.string(),
+    researchQuestion: z.string(),
+    metrics: z
+      .array(
+        z.object({
+          value: z.string(),
+          label: z.string(),
+          note: z.string().optional(),
+        }),
+      )
+      .default([]),
+    links: z
+      .array(
+        z.object({
+          label: z.string(),
+          url: z.url(),
+        }),
+      )
+      .default([]),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string(),
+          caption: z.string(),
+          width: z.number(),
+          height: z.number(),
+        }),
+      )
+      .default([]),
     technologies: z.array(z.string()),
     visual: z.enum(["maas", "clarity", "eqe", "minerva"]),
     featured: z.boolean().default(false),
