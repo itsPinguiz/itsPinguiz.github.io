@@ -43,7 +43,7 @@ const {
 
 const pageTitle = `${shortTitle ?? title} — Case Study | Stefano Zizzi`;
 const socialImage = gallery[0]?.src ?? "/og.png";
-const nextPath = `/projects/${nextProject.id.replace(/\.md$/, "")}/`;
+const nextPath = `/projects/${nextProject.id.replace(/\.md$/, "")}`;
 const visibleHeadings = headings.filter((heading) => heading.depth === 2);
 ---
 

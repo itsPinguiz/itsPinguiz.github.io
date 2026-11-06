@@ -55,6 +55,19 @@ const structuredData = {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f4f1e9" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      let savedTheme;
+      try {
+        savedTheme = localStorage.getItem("theme");
+      } catch {}
+      const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const initialTheme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : preferredTheme;
+      document.documentElement.dataset.theme = initialTheme;
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", initialTheme === "dark" ? "#0e1820" : "#f4f1e9");
+    </script>
     <meta name="description" content={description} />
     <meta name="author" content="Stefano Zizzi" />
     <meta name="robots" content="index, follow" />
@@ -83,7 +96,34 @@ const structuredData = {
     <a class="skip-link" href="#main-content">Skip to content</a>
     <slot />
     <script is:inline>
-      document.documentElement.classList.add("js");
+      const themeToggle = document.querySelector("[data-theme-toggle]");
+      const themeLabel = document.querySelector("[data-theme-label]");
+      const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+      const setTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "dark" ? "#0e1820" : "#f4f1e9");
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        themeToggle?.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+        if (themeLabel) themeLabel.textContent = `${nextTheme[0].toUpperCase()}${nextTheme.slice(1)} mode`;
+      };
+
+      setTheme(document.documentElement.dataset.theme ?? (themeMedia.matches ? "dark" : "light"));
+      themeToggle?.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        setTheme(nextTheme);
+        try {
+          localStorage.setItem("theme", nextTheme);
+        } catch {}
+      });
+      themeMedia.addEventListener?.("change", (event) => {
+        let savedTheme;
+        try {
+          savedTheme = localStorage.getItem("theme");
+        } catch {}
+        if (savedTheme !== "dark" && savedTheme !== "light") setTheme(event.matches ? "dark" : "light");
+      });
 
       const menuButton = document.querySelector("[data-menu-button]");
       const menu = document.querySelector("[data-menu]");

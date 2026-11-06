@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { project, index } = Astro.props;
-const projectPath = `/projects/${project.id.replace(/\.md$/, "")}/`;
+const projectPath = `/projects/${project.id.replace(/\.md$/, "")}`;
 const {
   title,
   category,
