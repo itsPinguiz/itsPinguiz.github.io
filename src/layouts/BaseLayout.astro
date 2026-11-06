@@ -141,6 +141,26 @@ const structuredData = {
         });
       });
 
+      const navLinks = [...document.querySelectorAll('.site-nav a[href^="/#"]')];
+      const navSections = navLinks
+        .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")?.slice(1) ?? "") }))
+        .filter((item) => item.section);
+
+      if (navSections.length && "IntersectionObserver" in window) {
+        const navigationObserver = new IntersectionObserver(
+          (entries) => {
+            const activeEntry = entries.find((entry) => entry.isIntersecting);
+            if (!activeEntry) return;
+            navSections.forEach(({ link, section }) => {
+              link.toggleAttribute("aria-current", section === activeEntry.target);
+              if (section === activeEntry.target) link.setAttribute("aria-current", "location");
+            });
+          },
+          { rootMargin: "-20% 0px -65%", threshold: 0 },
+        );
+        navSections.forEach(({ section }) => navigationObserver.observe(section));
+      }
+
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!reduceMotion && "IntersectionObserver" in window) {
         const observer = new IntersectionObserver(

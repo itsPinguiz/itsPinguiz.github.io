@@ -7,6 +7,8 @@ import Timeline from "../components/Timeline.astro";
 import Footer from "../components/Footer.astro";
 
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const highlightedProjects = projects.slice(0, 2);
+const moreProjects = projects.slice(2);
 
 const focusAreas = [
   {
@@ -67,7 +69,14 @@ const focusAreas = [
       </div>
 
       <div class="projects-grid">
-        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+        {highlightedProjects.map((project, index) => <ProjectCard project={project} index={index} highlighted />)}
+      </div>
+
+      <div class="work-more">
+        <p class="section-index">More projects</p>
+        <div class="projects-grid">
+          {moreProjects.map((project, index) => <ProjectCard project={project} index={index + highlightedProjects.length} />)}
+        </div>
       </div>
     </section>
 
@@ -121,7 +130,7 @@ const focusAreas = [
             target="_blank"
             rel="noreferrer"
           >
-            Explore InformaticaUniurb <span aria-hidden="true">↗</span>
+            Explore InformaticaUniurb <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
 
@@ -158,12 +167,12 @@ const focusAreas = [
           </a>
           <a href="https://github.com/itsPinguiz" target="_blank" rel="noreferrer">
             <span>Code</span>
-            <strong>github.com/itsPinguiz</strong>
+            <strong>github.com/itsPinguiz<span class="sr-only"> (opens in a new tab)</span></strong>
             <i aria-hidden="true">↗</i>
           </a>
           <a href="https://www.linkedin.com/in/zizzi-stefano" target="_blank" rel="noreferrer">
             <span>Network</span>
-            <strong>linkedin.com/in/zizzi-stefano</strong>
+            <strong>linkedin.com/in/zizzi-stefano<span class="sr-only"> (opens in a new tab)</span></strong>
             <i aria-hidden="true">↗</i>
           </a>
         </div>

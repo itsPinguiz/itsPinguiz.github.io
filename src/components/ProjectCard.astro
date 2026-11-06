@@ -5,17 +5,16 @@ import ProjectVisual from "./ProjectVisual.astro";
 interface Props {
   project: CollectionEntry<"projects">;
   index: number;
+  highlighted?: boolean;
 }
 
-const { project, index } = Astro.props;
+const { project, index, highlighted = false } = Astro.props;
 const projectPath = `/projects/${project.id.replace(/\.md$/, "")}`;
 const {
   title,
   category,
   status,
   summary,
-  problem,
-  approach,
   contribution,
   result,
   resultLabel,
@@ -23,11 +22,10 @@ const {
   evidenceLabel,
   technologies,
   visual,
-  featured,
 } = project.data;
 ---
 
-<article class:list={["project-card", featured && "project-card--featured"]} data-reveal>
+<article class:list={["project-card", highlighted && "project-card--highlighted"]} data-reveal>
   <div class="project-card__topline">
     <span class="project-index">{String(index + 1).padStart(2, "0")}</span>
     <span class:list={["status", status === "In Development" && "status--development"]}>
@@ -42,20 +40,7 @@ const {
     <h3><a href={projectPath}>{title}</a></h3>
     <p class="project-summary">{summary}</p>
 
-    <dl class="project-details">
-      <div>
-        <dt>Problem</dt>
-        <dd>{problem}</dd>
-      </div>
-      <div>
-        <dt>Approach</dt>
-        <dd>{approach}</dd>
-      </div>
-      <div>
-        <dt>Contribution</dt>
-        <dd>{contribution}</dd>
-      </div>
-    </dl>
+    <p class="project-contribution"><span>Contribution</span>{contribution}</p>
 
     {
       result && (
@@ -77,8 +62,13 @@ const {
         </a>
         {
           evidenceUrl && (
-            <a class="text-link text-link--muted" href={evidenceUrl} target="_blank" rel="noreferrer">
-              {evidenceLabel} <span aria-hidden="true">↗</span>
+            <a
+              class="text-link text-link--muted"
+              href={evidenceUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {evidenceLabel} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
             </a>
           )
         }
