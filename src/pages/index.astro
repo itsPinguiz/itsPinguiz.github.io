@@ -13,25 +13,21 @@ const focusAreas = [
     index: "01",
     title: "Computer Vision",
     description: "Semantic segmentation, OOD detection and multi-task visual learning.",
-    signal: "perception",
   },
   {
     index: "02",
     title: "NLP & LLMs",
     description: "Transformer encoders, prompted models and parameter-efficient fine-tuning.",
-    signal: "language",
   },
   {
     index: "03",
     title: "Explainable AI",
-    description: "Faithfulness, compact explanations and trustworthy evaluation.",
-    signal: "trust",
+    description: "Explanation faithfulness and evaluation with limited feature sets.",
   },
   {
     index: "04",
     title: "ML Engineering",
-    description: "Reproducible experiments, clear interfaces and evidence-led delivery.",
-    signal: "systems",
+    description: "Experiment tracking, reproducibility and software interfaces.",
   },
 ];
 ---
@@ -43,18 +39,11 @@ const focusAreas = [
   <main id="main-content">
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy" data-reveal data-visible>
-        <p class="hero-kicker"><span></span> AI Engineering · Torino, Italy</p>
-        <h1 id="hero-title">
-          Building AI systems for
-          <span class="hero-shift">
-            <em>perception.</em>
-            <em>language.</em>
-            <em>trust.</em>
-          </span>
-        </h1>
+        <p class="hero-kicker">Computer Engineering · Torino, Italy</p>
+        <h1 id="hero-title">Stefano Zizzi</h1>
         <p class="hero-intro">
-          I’m <strong>Stefano Zizzi</strong>, a Computer Engineering M.Sc. student specializing in
-          Artificial Intelligence and Data Analytics, working where rigorous experimentation meets reliable software.
+          I’m an M.Sc. student in Computer Engineering at Politecnico di Torino, specializing in
+          Artificial Intelligence and Data Analytics. My projects cover computer vision, NLP and explainable AI.
         </p>
         <div class="hero-actions">
           <a class="button button--primary" href="#work">View selected work <span aria-hidden="true">↓</span></a>
@@ -68,39 +57,14 @@ const focusAreas = [
           <a class="button button--secondary" href="mailto:zizzi.stfn@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-
-      <aside class="hero-panel" aria-label="Profile summary" data-reveal data-visible>
-        <div class="hero-panel__header">
-          <span>PROFILE / 2026</span>
-          <i></i>
-        </div>
-        <div class="hero-monogram">
-          <span>S</span>
-          <span>Z</span>
-        </div>
-        <div class="hero-panel__data">
-          <div><span>Current</span><strong>Politecnico di Torino</strong></div>
-          <div><span>Focus</span><strong>Research × Engineering</strong></div>
-          <div><span>Status</span><strong class="available"><i></i> Open to opportunities</strong></div>
-        </div>
-      </aside>
-
-      <div class="hero-meta">
-        <span>Selected research & engineering work</span>
-        <span aria-hidden="true">Scroll to inspect ↓</span>
-      </div>
     </section>
 
     <section id="work" class="section shell work-section" aria-labelledby="work-title">
-      <div class="section-heading" data-reveal>
+      <div class="section-heading section-heading--single" data-reveal>
         <div>
-          <p class="section-index">01 / Selected Work</p>
-          <h2 id="work-title">Projects with evidence.</h2>
+          <p class="section-index">01 / Work</p>
+          <h2 id="work-title">Selected projects</h2>
         </div>
-        <p>
-          Each project is framed around the problem, technical approach, personal contribution and
-          verifiable output.
-        </p>
       </div>
 
       <div class="projects-grid">
@@ -110,14 +74,11 @@ const focusAreas = [
 
     <section id="about" class="section section--ink" aria-labelledby="focus-title">
       <div class="shell">
-        <div class="section-heading section-heading--light" data-reveal>
+        <div class="section-heading section-heading--light section-heading--single" data-reveal>
           <div>
-            <p class="section-index">02 / Technical Focus</p>
-            <h2 id="focus-title">Depth over buzzwords.</h2>
+            <p class="section-index">02 / Focus</p>
+            <h2 id="focus-title">Technical areas</h2>
           </div>
-          <p>
-            My work spans the model, evaluation and engineering layers—because useful AI depends on all three.
-          </p>
         </div>
 
         <div class="focus-grid">
@@ -126,7 +87,6 @@ const focusAreas = [
               <article data-reveal>
                 <div class="focus-top">
                   <span>{area.index}</span>
-                  <i>{area.signal}</i>
                 </div>
                 <h3>{area.title}</h3>
                 <p>{area.description}</p>
@@ -134,25 +94,15 @@ const focusAreas = [
             ))
           }
         </div>
-
-        <div class="principle" data-reveal>
-          <p>Working principle</p>
-          <blockquote>
-            “A strong result is not just a metric. It is a result you can <em>explain</em>, <em>reproduce</em> and <em>interrogate</em>.”
-          </blockquote>
-        </div>
       </div>
     </section>
 
     <section class="section shell journey-section" aria-labelledby="journey-title">
-      <div class="section-heading" data-reveal>
+      <div class="section-heading section-heading--single" data-reveal>
         <div>
-          <p class="section-index">03 / Education & Experience</p>
-          <h2 id="journey-title">A foundation built in layers.</h2>
+          <p class="section-index">03 / Background</p>
+          <h2 id="journey-title">Education and experience</h2>
         </div>
-        <p>
-          From Computer Science fundamentals to research-led AI engineering and applied machine learning.
-        </p>
       </div>
       <Timeline />
     </section>
@@ -161,10 +111,10 @@ const focusAreas = [
       <div class="community-card" data-reveal>
         <div class="community-copy">
           <p class="section-index">04 / Open Source & Community</p>
-          <h2 id="community-title">Knowledge compounds when it is shared.</h2>
+          <h2 id="community-title">Open source and university work</h2>
           <p>
-            Beyond research projects, I maintain and contribute to student-facing resources, peer collaboration
-            and academic representation.
+            I contribute to InformaticaUniurb, a collection of Computer Science course notes for students at the
+            University of Urbino.
           </p>
           <a
             class="button button--light"
@@ -186,7 +136,7 @@ const focusAreas = [
             <span>Forks</span>
           </div>
           <div class="community-stat--wide">
-            <strong>Open notes, built together.</strong>
+            <strong>InformaticaUniurb</strong>
             <span>A collaborative collection of Computer Science course notes created for University of Urbino students.</span>
           </div>
         </div>
@@ -195,8 +145,8 @@ const focusAreas = [
 
     <section id="contact" class="contact-section" aria-labelledby="contact-title">
       <div class="shell contact-inner" data-reveal>
-        <p class="section-index">05 / Contact</p>
-        <h2 id="contact-title">Let’s build something<br /><em>worth explaining.</em></h2>
+        <p class="section-index">05 / Get in touch</p>
+        <h2 id="contact-title">Contact</h2>
         <p>
           I’m interested in research collaborations, internships and engineering work across Computer Vision,
           NLP and trustworthy AI.
