@@ -12,22 +12,18 @@ const moreProjects = projects.slice(2);
 
 const focusAreas = [
   {
-    index: "01",
     title: "Computer Vision",
     description: "Semantic segmentation, OOD detection and multi-task visual learning.",
   },
   {
-    index: "02",
     title: "NLP & LLMs",
     description: "Transformer encoders, prompted models and parameter-efficient fine-tuning.",
   },
   {
-    index: "03",
     title: "Explainable AI",
     description: "Explanation faithfulness and evaluation with limited feature sets.",
   },
   {
-    index: "04",
     title: "ML Engineering",
     description: "Experiment tracking, reproducibility and software interfaces.",
   },
@@ -41,11 +37,10 @@ const focusAreas = [
   <main id="main-content">
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy" data-reveal data-visible>
-        <p class="hero-kicker">Computer Engineering · Torino, Italy</p>
+        <p class="hero-kicker">Computer Engineering student · Torino</p>
         <h1 id="hero-title">Stefano Zizzi</h1>
         <p class="hero-intro">
-          I’m an M.Sc. student in Computer Engineering at Politecnico di Torino, specializing in
-          Artificial Intelligence and Data Analytics. My projects cover computer vision, NLP and explainable AI.
+          I build and study machine-learning systems, with a focus on computer vision, language and reliable evaluation.
         </p>
         <div class="hero-actions">
           <a class="button button--primary" href="#work">View selected work <span aria-hidden="true">↓</span></a>
@@ -63,19 +58,19 @@ const focusAreas = [
     <section id="work" class="section shell work-section" aria-labelledby="work-title">
       <div class="section-heading section-heading--single" data-reveal>
         <div>
-          <p class="section-index">01 / Work</p>
-          <h2 id="work-title">Selected projects</h2>
+          <p class="section-index">Selected work</p>
+          <h2 id="work-title">Projects I have worked on</h2>
         </div>
       </div>
 
       <div class="projects-grid">
-        {highlightedProjects.map((project, index) => <ProjectCard project={project} index={index} highlighted />)}
+        {highlightedProjects.map((project) => <ProjectCard project={project} highlighted />)}
       </div>
 
       <div class="work-more">
         <p class="section-index">More projects</p>
         <div class="projects-grid">
-          {moreProjects.map((project, index) => <ProjectCard project={project} index={index + highlightedProjects.length} />)}
+          {moreProjects.map((project) => <ProjectCard project={project} />)}
         </div>
       </div>
     </section>
@@ -84,8 +79,8 @@ const focusAreas = [
       <div class="shell">
         <div class="section-heading section-heading--light section-heading--single" data-reveal>
           <div>
-            <p class="section-index">02 / Focus</p>
-            <h2 id="focus-title">Technical areas</h2>
+            <p class="section-index">Areas of interest</p>
+            <h2 id="focus-title">What I work on</h2>
           </div>
         </div>
 
@@ -93,9 +88,6 @@ const focusAreas = [
           {
             focusAreas.map((area) => (
               <article data-reveal>
-                <div class="focus-top">
-                  <span>{area.index}</span>
-                </div>
                 <h3>{area.title}</h3>
                 <p>{area.description}</p>
               </article>
@@ -108,7 +100,7 @@ const focusAreas = [
     <section class="section shell journey-section" aria-labelledby="journey-title">
       <div class="section-heading section-heading--single" data-reveal>
         <div>
-          <p class="section-index">03 / Background</p>
+          <p class="section-index">Background</p>
           <h2 id="journey-title">Education and experience</h2>
         </div>
       </div>
@@ -118,8 +110,8 @@ const focusAreas = [
     <section id="community" class="section shell community-section" aria-labelledby="community-title">
       <div class="community-card" data-reveal>
         <div class="community-copy">
-          <p class="section-index">04 / Open Source & Community</p>
-          <h2 id="community-title">Open source and university work</h2>
+          <p class="section-index">Community</p>
+          <h2 id="community-title">Notes that stay useful</h2>
           <p>
             I contribute to InformaticaUniurb, a collection of Computer Science course notes for students at the
             University of Urbino.
@@ -134,27 +126,14 @@ const focusAreas = [
           </a>
         </div>
 
-        <div class="community-stats">
-          <div>
-            <strong>20+</strong>
-            <span>GitHub stars</span>
-          </div>
-          <div>
-            <strong>9</strong>
-            <span>Forks</span>
-          </div>
-          <div class="community-stat--wide">
-            <strong>InformaticaUniurb</strong>
-            <span>A collaborative collection of Computer Science course notes created for University of Urbino students.</span>
-          </div>
-        </div>
+        <p class="community-note">A collaborative collection of Computer Science course notes created for University of Urbino students.</p>
       </div>
     </section>
 
     <section id="contact" class="contact-section" aria-labelledby="contact-title">
       <div class="shell contact-inner" data-reveal>
-        <p class="section-index">05 / Email and profiles</p>
-        <h2 id="contact-title">Contact</h2>
+        <p class="section-index">Contact</p>
+        <h2 id="contact-title">Let’s keep it simple.</h2>
         <p>
           I’m interested in research collaborations, internships and engineering work across Computer Vision,
           NLP and trustworthy AI.

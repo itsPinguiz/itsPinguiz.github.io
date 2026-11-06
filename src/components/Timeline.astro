@@ -23,13 +23,12 @@ const entries = [
 
 <ol class="timeline">
   {
-    entries.map((entry, index) => (
+    entries.map((entry) => (
       <li data-reveal>
-        <span class="timeline-number">{String(index + 1).padStart(2, "0")}</span>
         <div class="timeline-period">{entry.period}</div>
         <div class="timeline-main">
-          <p>{entry.place}</p>
           <h3>{entry.title}</h3>
+          <p>{entry.place}</p>
           <span>{entry.description}</span>
         </div>
       </li>

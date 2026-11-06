@@ -4,11 +4,10 @@ import ProjectVisual from "./ProjectVisual.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
-  index: number;
   highlighted?: boolean;
 }
 
-const { project, index, highlighted = false } = Astro.props;
+const { project, highlighted = false } = Astro.props;
 const projectPath = `/projects/${project.id.replace(/\.md$/, "")}`;
 const {
   title,
@@ -26,17 +25,13 @@ const {
 ---
 
 <article class:list={["project-card", highlighted && "project-card--highlighted"]} data-reveal>
-  <div class="project-card__topline">
-    <span class="project-index">{String(index + 1).padStart(2, "0")}</span>
-    <span class:list={["status", status === "In Development" && "status--development"]}>
-      <i></i>{status}
-    </span>
-  </div>
-
   <ProjectVisual visual={visual} />
 
   <div class="project-card__content">
-    <p class="eyebrow">{category}</p>
+    <div class="project-card__meta">
+      <p class="eyebrow">{category}</p>
+      <span class:list={["status", status === "In Development" && "status--development"]}>{status}</span>
+    </div>
     <h3><a href={projectPath}>{title}</a></h3>
     <p class="project-summary">{summary}</p>
 
